@@ -1,2 +1,2 @@
 # Krunker.io-Client-Code
-Current Version => 1.8.0
+Current Version => 2.0.8
