@@ -7,7 +7,7 @@ request.get('https://krunker.io', (err, res, body) => {
     var buffer = Buffer.from(str, 'base64').toString('binary');
     var bytes = Buffer.from(buffer);
 
-    var version = bytes.toString().match(/async\sfn.*?-.*?(\w+)/)[1];
+    var version = bytes.toString().match(/async fn.+(\w{5}).+INVALID TOKEN/)[1];
 
     request.get('https://krunker.io/pkg/krunker.' + version + '.vries', {
         encoding: null
@@ -15,12 +15,12 @@ request.get('https://krunker.io', (err, res, body) => {
         var str = '';
 
         for (var i = 0; i < buf.byteLength; i++) {
-            var byte = buf.readUInt8(i) ^ 0xf7;
+            var byte = buf.readUInt8(i) ^ 0x69;
             str += String.fromCharCode(byte);
         }
 
         fs.writeFileSync('game.js', str);
 
-        console.log('[KRUNKER] => Saved to game.js');
+        console.log('[KRUNKER] => Version: %s | Saved to game.js', version);
     });
 });
