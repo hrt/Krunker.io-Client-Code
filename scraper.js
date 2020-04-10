@@ -7,7 +7,7 @@ request.get('https://krunker.io', (err, res, body) => {
     var buffer = Buffer.from(str, 'base64').toString('binary');
     var bytes = Buffer.from(buffer);
 
-    var version = bytes.toString().match(/`async fn` resumed after completion(?:.|\n)+(\w{5})(?:.|\n)+INVALID TOKEN/)[1];
+    var version = bytes.toString().match(/`async fn` resumed after completion(?:.|\n)+(\w{5})(?:.|\n)+/)[1];
 
     request.get('https://krunker.io/pkg/krunker.' + version + '.vries', {
         encoding: null
