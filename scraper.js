@@ -1,4 +1,3 @@
-const beautify = require('js-beautify').js;
 const request = require('request');
 const fs = require('fs');
 
@@ -36,11 +35,6 @@ request.get('https://matchmaker.krunker.io/game-list?hostname=krunker.io', {
         }
 
         console.log('[KRUNKER] - Formatting Code...');
-
-        str = beautify(str, {
-            indent_size: 4,
-            space_in_empty_paren: true
-        });
 
         fs.writeFile('game.js', str, (err) => {
             if (err) throw err;
