@@ -25,7 +25,9 @@ request.get('https://matchmaker.krunker.io/game-list?hostname=krunker.io', {
         encoding: null
     }, (err, res, buf) => {
         var str = '';
+        
         console.log('[KRUNKER] - Decoding Bytes...');
+        
         for (var i = 0; i < buf.byteLength; i++) {
             var byte = buf.readUInt8(i) ^ 0x69;
             str += String.fromCharCode(byte);
