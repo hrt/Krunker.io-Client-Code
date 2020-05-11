@@ -4,18 +4,8 @@ const fs = require('fs');
 
 console.log('[KRUNKER] - Fetching Version...');
 
-request.get('https://matchmaker.krunker.io/game-list?hostname=krunker.io', {
-    json: true
-}, (err, res, body) => {
-    var game = body.games[0];
-    var gameId = game[0];
-    var serverRegion = game[1];
-    var currentPlayers = game[2];
-    var maxPlayers = game[3];
-    var gameInfo = game[4];
-    var version = gameInfo.v;
-    var customServer = gameInfo.cs;
-    var gameType = gameInfo.i;
+request.get('https://krunker.io/social.html', (err, res, body) => {
+    var version = body.match(/(?<=\w+.exports=")[^"]+/)[0];
 
     // Discord - Lemons#0001
 
