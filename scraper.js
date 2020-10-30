@@ -5,7 +5,7 @@ const fs = require('fs');
 console.log('[KRUNKER] - Fetching Version...');
 
 request.get('https://krunker.io/social.html', (err, res, body) => {
-    var version = body.match(/(?<=\w+.exports=")[^"]+/)[0];
+    var version = body.match(/\w+\.exports="(\w+)/)[1];
 
     // Discord - Lemons#0001
 
@@ -17,27 +17,16 @@ request.get('https://krunker.io/social.html', (err, res, body) => {
         var str = '';
         
         console.log('[KRUNKER] - Decoding Bytes...');
-        
+        var xor_key = buf.readUInt8(0) ^ '!'.charCodeAt(0);
+        console.log('[KRUNKER] - Calculated XOR key (%s)...', xor_key);
         for (var i = 0; i < buf.byteLength; i++) {
-            var byte = buf.readUInt8(i) ^ 0x69;
+            var byte = buf.readUInt8(i) ^ xor_key;
             str += String.fromCharCode(byte);
         }
-
-        console.log('[KRUNKER] - Formatting Code...');
-
-        var code = beautify(str, {
-            indent_size: 4,
-            space_in_empty_paren: true
-        });
 
         fs.writeFile('game.js', str, (err) => {
             if (err) throw err;
             console.log('[KRUNKER] - Saved original to game.js');
-        });
-
-        fs.writeFile('game_beautify.js', code, (err) => {
-            if (err) throw err;
-            console.log('[KRUNKER] - Saved beautified to game_beautify.js');
         });
     });
 });
