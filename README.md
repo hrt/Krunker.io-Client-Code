@@ -1,2 +1,3 @@
 # Krunker.io-Client-Code
-Current Version => 2.0.8
+`npm install node-beautify`
+`node scraper.js`
